@@ -442,12 +442,7 @@
   <div class="log-card-title">
     S-H-O-D-A-N
   </div>
-background:rgba(0,0,0,0.96);
-z-index:99999;
-font-family:monospace;
-color:#55ff55;
-padding-top:120px;
-">
+
 
 <div style="
 width:600px;
@@ -499,35 +494,7 @@ color:#888;
 
 </div>
 </div>
-    document.getElementById("shodanLock").style.display = "block";
-
-}
-
-function checkShodanPassword(){
-
-  let password =
-    document.getElementById("shodanPassword")
-    .value
-    .toUpperCase();
-
-  let output =
-    document.getElementById("shodanOutput");
-
-  if(password === "DRONE"){
-
-    output.innerHTML =
-    "SUBJECT RECOGNIZED<br><br>Opening memory sector...";
-
-    setTimeout(function(){
-
-      window.location.href = "shodan_log_001.html";
-
-    },2000);
-
-  } else {
-
-    output.innerHTML =
-    "ACCESS DENIED<br><br>The answer is closer than you think.";
+   
 
   }
 }
