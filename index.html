@@ -500,6 +500,23 @@ color:#888;
 
 
 </script>
+ 
+function openShodanLock(){
+
+  document.getElementById("shodanLock").style.display = "block";
+
+}
+
+function checkShodanPassword(){
+
+  let password =
+    document.getElementById("shodanPassword")
+    .value
+    .toUpperCase();
+
+  let output =
+    document.getElementById("shodanOutput");
+
   if(password === "DRONE"){
 
     output.innerHTML =
