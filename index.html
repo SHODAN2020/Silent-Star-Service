@@ -496,14 +496,28 @@ color:#888;
 </div>
    
 
-  }
-}
+  
+
 
 </script>
- 
+  if(password === "DRONE"){
 
+    output.innerHTML =
+    "SUBJECT RECOGNIZED<br><br>Opening memory sector...";
+
+    setTimeout(function(){
+
+      window.location.href = "shodan_log_001.html";
+
+    },2000);
+
+  } else {
+
+    output.innerHTML =
+    "ACCESS DENIED<br><br>The answer is closer than you think.";
 
   }
+
 }
 
 </script>
