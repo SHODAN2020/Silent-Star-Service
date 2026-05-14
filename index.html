@@ -277,7 +277,7 @@
   <div class="section-title">// employee_log — index</div>
   <div class="log-grid">
 
-    <div class="log-card  style="cursor:pointer" onclick="window.location.href='trans_001.html'">
+    <div class="log-card"  style="cursor:pointer" onclick="window.location.href='trans_001.html'">
       <div class="log-card-id">LOG_ID : TRANS_001</div>
       <div class="log-card-title">Transcription 001</div>
       <div class="log-card-meta">Date : 29.12.2024<br>Author : Subject 001<br>Re : First contact — the orb</div>
@@ -442,32 +442,99 @@
   <div class="log-card-title">
     S-H-O-D-A-N
   </div>
+background:rgba(0,0,0,0.96);
+z-index:99999;
+font-family:monospace;
+color:#55ff55;
+padding-top:120px;
+">
 
-  <div class="log-card-meta">
-    Date : -250.000.000 BC<br>
-    Author : Entity-028<br>
-    Re : Earth discovery
-  </div>
+<div style="
+width:600px;
+margin:auto;
+border:1px solid #1f4f1f;
+padding:30px;
+background:black;
+">
 
-  <div class="log-card-status" style="color:#8a6a2a">
-    ● RESTRICTED
-  </div>
-Welcome back.
+<h2>ENTITY_0028 SECURITY LAYER</h2>
 
-Opening memory sector...`;
+<p>
+look in the mirror<br>
+i am not like you
+</p>
 
-    setTimeout(() => {
+<input
+type="password"
+id="shodanPassword"
+placeholder="INPUT DESIGNATION"
+style="
+width:100%;
+padding:10px;
+background:black;
+border:1px solid #1f4f1f;
+color:#55ff55;
+margin-top:20px;
+"
+/>
+
+<button
+onclick="checkShodanPassword()"
+style="
+margin-top:20px;
+padding:10px;
+background:black;
+border:1px solid #1f4f1f;
+color:#55ff55;
+cursor:pointer;
+">
+ACCESS
+</button>
+
+<div id="shodanOutput" style="
+margin-top:20px;
+color:#888;
+">
+</div>
+
+</div>
+</div>
+    document.getElementById("shodanLock").style.display = "block";
+
+}
+
+function checkShodanPassword(){
+
+  let password =
+    document.getElementById("shodanPassword")
+    .value
+    .toUpperCase();
+
+  let output =
+    document.getElementById("shodanOutput");
+
+  if(password === "DRONE"){
+
+    output.innerHTML =
+    "SUBJECT RECOGNIZED<br><br>Opening memory sector...";
+
+    setTimeout(function(){
+
       window.location.href = "shodan_log_001.html";
-    }, 2500);
+
+    },2000);
 
   } else {
 
-    out.style.color = "#6a4a2a";
+    output.innerHTML =
+    "ACCESS DENIED<br><br>The answer is closer than you think.";
 
-    out.innerText =
-`ACCESS DENIED
+  }
+}
 
-The answer is closer than you think.`;
+</script>
+ 
+
 
   }
 }
