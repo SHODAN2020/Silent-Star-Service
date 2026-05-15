@@ -17,16 +17,21 @@
     
     }
 
-   @font-face {
+  @font-face {
     font-family: 'AncienStars';
-    /* Utilise ./ pour dire "au même endroit" */
-    src: url('./AncienStarsGlyphes-Regular.otf') format('opentype');
+    /* On pointe l'URL complète pour être sûr à 100% */
+    src: url('https://shodan2020.github.io/Silent-Star-Service/AncienStarsGlyphes-Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
 
 .alien-msg {
-    font-family: 'AncienStars', monospace !important;
+    /* Le !important ici est crucial */
+    font-family: 'AncienStars' !important;
+    color: #a0c8ff;
+    font-size: 24px; /* On le met gros pour bien voir le changement */
+    display: inline-block;
+    visibility: visible !important;
 }
 
     body {
@@ -622,7 +627,7 @@
         - .-. .- -. ... ..-. --- .-. -- . &nbsp;|&nbsp;
       </span>
     </div>
-<p class="alien-msg">ABCDEF</p>
+
     <!-- SHODAN FRAGMENT -->
     <div class="shodan-line">
       <div class="shodan-label">// ENTITY-028 INTERNAL LOG — FRAGMENT</div>
