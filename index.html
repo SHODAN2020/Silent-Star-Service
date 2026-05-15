@@ -8,7 +8,22 @@
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
     *{margin:0;padding:0;box-sizing:border-box}
+@font-face {
+    font-family: 'AncienStars';
+    /* Assure-toi que le nom du fichier est exactement le même sur ton GitHub */
+    src: url('AncienStarsGlyphes-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
 
+/* Création d'une classe spécifique pour les messages cryptés */
+.alien-msg {
+    font-family: 'AncienStars', monospace;
+    color: #a0c8ff; /* Bleu de Doyesha */
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba(160, 200, 255, 0.6);
+}
     body{
       background:#000;
       color:#c8d8c8;
