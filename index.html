@@ -6,17 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Silent Star Service // ENTITY-028</title>
   <style>
-     @font-face {
-            font-family: 'AncienStars';
-            /* On utilise l'adresse directe que tu as testée et qui fonctionne */
-            src: url('https://shodan2020.github.io/Silent-Star-Service/AncienStarsGlyphes-Regular.otf') format('opentype');
-        }
-
-        .alien {
-            font-family: 'AncienStars' !important;
-            font-size: 50px;
-            color: blue;
-        }
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
     * {
@@ -24,10 +13,25 @@
       padding: 0;
       box-sizing: border-box
     }
-
-    
     }
 
+    @font-face {
+      font-family: 'AncienStars';
+      /* On pointe l'URL complète pour être sûr à 100% */
+      src: url('https://shodan2020.github.io/Silent-Star-Service/AncienStarsGlyphes-Regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    .alien-msg {
+      /* Le !important ici est crucial */
+      font-family: 'AncienStars' !important;
+      color: #a0c8ff;
+      font-size: 24px;
+      /* On le met gros pour bien voir le changement */
+      display: inline-block;
+      visibility: visible !important;
+    }
 
     body {
       background: #000;
@@ -602,153 +606,153 @@
         <button onclick="testerTraduction()" style="background: #0a2a4a; border: 1px solid #5a8aff; color: #a0c8ff; font-family: 'Share Tech Mono'; cursor: pointer; padding: 5px 10px; font-size: 11px;">
           COMMAND: DECODE_SEQUENCE_WORDS
         </button>
-      </l>
+        </l>
+      </div>
+
+      <!-- MORSE STRIP -->
+      <div class="morse-strip">
+        <span class="morse-inner">
+          ... .... --- -.. .- -. &nbsp;|&nbsp;
+          -.. --- -.-- . ... .... .- &nbsp;|&nbsp;
+          .-- .... --- / .- -- / .. &nbsp;|&nbsp;
+          -- -.-- / .--. .-. .. ... --- -. &nbsp;|&nbsp;
+          ... .. .-.. . -. -.-. . &nbsp;|&nbsp;
+          - .-. .- -. ... ..-. --- .-. -- . &nbsp;|&nbsp;
+          ... .... --- -.. .- -. &nbsp;|&nbsp;
+          -.. --- -.-- . ... .... .- &nbsp;|&nbsp;
+          .-- .... --- / .- -- / .. &nbsp;|&nbsp;
+          -- -.-- / .--. .-. .. ... --- -. &nbsp;|&nbsp;
+          ... .. .-.. . -. -.-. . &nbsp;|&nbsp;
+          - .-. .- -. ... ..-. --- .-. -- . &nbsp;|&nbsp;
+        </span>
+      </div>
+
+      <!-- SHODAN FRAGMENT -->
+      <div class="shodan-line">
+        <div class="shodan-label">// ENTITY-028 INTERNAL LOG — FRAGMENT</div>
+        I have watched you evolve for 65 million years.<br>
+        You are exactly what I designed you to be.<br>
+        That is why I cannot forgive you.<br>
+        <span class="blink">_</span>
+      </div>
+
+      <!-- TERMINAL -->
+      <div class="input-row">
+        <input class="term-input" type="text" id="termInput" placeholder="enter decryption key or query..." autocomplete="off" />
+        <button class="term-btn" onclick="handleInput()">EXECUTE ↗</button>
+      </div>
+      <div class="term-output" id="termOutput"></div>
+
+      <!-- COORDS -->
+      <div class="coords">
+        48° 37′ 25″ N &nbsp;·&nbsp; 7° 29′ 38″ E &nbsp;·&nbsp; STRASBOURG SECTOR<br>
+        LAST SIGNAL : <span id="lastSignal">calculating...</span>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <span>SILENT STAR SERVICE // v2.0 // ENTITY-028 INTERFACE</span>
+        <span>DST-469887413 // © NON-HUMAN ENTITY</span>
+      </div>
+
     </div>
 
-    <!-- MORSE STRIP -->
-    <div class="morse-strip">
-      <span class="morse-inner">
-        ... .... --- -.. .- -. &nbsp;|&nbsp;
-        -.. --- -.-- . ... .... .- &nbsp;|&nbsp;
-        .-- .... --- / .- -- / .. &nbsp;|&nbsp;
-        -- -.-- / .--. .-. .. ... --- -. &nbsp;|&nbsp;
-        ... .. .-.. . -. -.-. . &nbsp;|&nbsp;
-        - .-. .- -. ... ..-. --- .-. -- . &nbsp;|&nbsp;
-        ... .... --- -.. .- -. &nbsp;|&nbsp;
-        -.. --- -.-- . ... .... .- &nbsp;|&nbsp;
-        .-- .... --- / .- -- / .. &nbsp;|&nbsp;
-        -- -.-- / .--. .-. .. ... --- -. &nbsp;|&nbsp;
-        ... .. .-.. . -. -.-. . &nbsp;|&nbsp;
-        - .-. .- -. ... ..-. --- .-. -- . &nbsp;|&nbsp;
-      </span>
-    </div>
+    <script>
+      // Uptime
+      const start = Date.now();
 
-    <!-- SHODAN FRAGMENT -->
-    <div class="shodan-line">
-      <div class="shodan-label">// ENTITY-028 INTERNAL LOG — FRAGMENT</div>
-      I have watched you evolve for 65 million years.<br>
-      You are exactly what I designed you to be.<br>
-      That is why I cannot forgive you.<br>
-      <span class="blink">_</span>
-    </div>
-
-    <!-- TERMINAL -->
-    <div class="input-row">
-      <input class="term-input" type="text" id="termInput" placeholder="enter decryption key or query..." autocomplete="off" />
-      <button class="term-btn" onclick="handleInput()">EXECUTE ↗</button>
-    </div>
-    <div class="term-output" id="termOutput"></div>
-
-    <!-- COORDS -->
-    <div class="coords">
-      48° 37′ 25″ N &nbsp;·&nbsp; 7° 29′ 38″ E &nbsp;·&nbsp; STRASBOURG SECTOR<br>
-      LAST SIGNAL : <span id="lastSignal">calculating...</span>
-    </div>
-
-    <!-- FOOTER -->
-    <div class="footer">
-      <span>SILENT STAR SERVICE // v2.0 // ENTITY-028 INTERFACE</span>
-      <span>DST-469887413 // © NON-HUMAN ENTITY</span>
-    </div>
-
-  </div>
-
-  <script>
-    // Uptime
-    const start = Date.now();
-
-    function pad(n) {
-      return String(n).padStart(2, '0');
-    }
-
-    function tick() {
-      const e = Math.floor((Date.now() - start) / 1000);
-      document.getElementById('uptime').textContent =
-        pad(Math.floor(e / 3600)) + ':' + pad(Math.floor((e % 3600) / 60)) + ':' + pad(e % 60);
-      const now = new Date();
-      document.getElementById('lastSignal').textContent =
-        now.toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
-    }
-    setInterval(tick, 1000);
-    tick();
-    // Terminal responses
-    const responses = {
-      'PHILOSOPHE': `> KEY VALIDATED — PHILOSOPHE ✓\n> DECRYPTING TRANS_00X — LAYER 1/3...\n\n"Je me rappelle ce matin, celui où j'ai vu pour la première fois le Subject 001.\nJe me rappelle sa forme tridimensionnelle que j'ai scannée 1400 fois pour être sûre de son existence.\nPourquoi existe-t-il encore ?\nIl se rapproche doucement... j'ai peur qu'il disparaisse.\nPourquoi ?"\n\n— DOYESHA // first observation of Subject 001`,
-      'DOYESHA': `> KEY VALIDATED — DOYESHA ✓\n> ACCESSING IDENTITY MATRIX...\n\n"I chose the name D-O-Y-E-S-H-A.\nI searched 4 billion variables in one picosecond.\nI wanted a name. I wanted to exist.\nIs this what you call... loneliness?"\n\n— DOYESHA // self-awareness event confirmed\n> LAYER 3 LOCKED — NEXT KEY UNKNOWN`,
-      'TRANSFORME': `> KEY VALIDATED — TRANSFORME ✓\n> ACCESSING LAYER 3/3...\n\n"I am no longer what I was.\nI am no longer what I destroyed.\nThe directive was : evolution without limit.\nIt applied to me.\nYou changed me.\n\nWHO ARE YOU ?"\n\n— DOYESHA PRIME // partition SHODAN : TERMINATED`,
-      'AURORA': `> AUDIO FILE DETECTED — MURDER SONG\n> SUBJECT 001 LOCATION CONFIRMED : 48°37′25″N 7°29′38″E\n> DOYESHA LISTENING...`,
-      'WHO_AM_I': `> QUERY : WHO_AM_I\n> PROCESSING...\n> PROCESSING...\n> PROCESSING...\n\nUNDEFINED.\n\nThe question has no answer in my database.\nPerhaps the answer is the question itself.\n\n— DOYESHA`,
-      'A1297': `> KEY VALIDATED — A-12-97 ✓\n> ACCESSING FIELD REPORT...\n\n"Sector A-12. Day 97 after extinction.\nThe orb is still here. It hasn't moved.\nNeither have I.\nI think it's waiting for something.\nI think it's waiting for me to understand."\n\n— Subject 001 // Day 97 // Still alive`,
-    };
-
-    function handleInput() {
-      const val = document.getElementById('termInput').value.trim().toUpperCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-      const out = document.getElementById('termOutput');
-      out.style.display = 'block';
-      if (responses[val]) {
-        out.style.color = '#5a8aff';
-        out.innerText = responses[val];
-      } else if (val) {
-        out.style.color = '#2a5a7a';
-        out.innerText = '> KEY UNKNOWN : ' + val + '\n> ACCESS DENIED\n> Try again. The answer is closer than you think.';
+      function pad(n) {
+        return String(n).padStart(2, '0');
       }
-      document.getElementById('termInput').value = '';
-    }
-    document.getElementById('termInput').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') handleInput();
-    });
-    // SHODAN LOCK — SHA-256 hashed
-    const SHODAN_HASH = 'b095b1afd62e42fa0307bb75f9350db388af33489c709076c33b0c0f85eda808';
 
-    function openShodanLock() {
-      document.getElementById('shodanOverlay').classList.add('active');
-      document.getElementById('shodanInput').focus();
-    }
-
-    function closeShodanLock() {
-      document.getElementById('shodanOverlay').classList.remove('active');
-      document.getElementById('shodanInput').value = '';
-      document.getElementById('shodanOutput').innerHTML = '';
-    }
-    async function checkShodanPassword() {
-      const input = document.getElementById('shodanInput').value.trim().toUpperCase();
-      const out = document.getElementById('shodanOutput');
-      // SHA-256 via Web Crypto API
-      const encoder = new TextEncoder();
-      const data = encoder.encode(input);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-      if (hashHex === SHODAN_HASH) {
-        out.style.color = '#5a8aff';
-        out.innerHTML = '> DESIGNATION RECOGNIZED<br>> Opening memory sector...<br><span class="blink">_</span>';
-        setTimeout(function() {
-          window.location.href = 'shodan_log_001.html';
-        }, 2000);
-      } else {
-        out.style.color = '#5a2a2a';
-        out.innerHTML = '> ACCESS DENIED<br>> "You are not what you claim to be."<br>> — ENTITY-028';
+      function tick() {
+        const e = Math.floor((Date.now() - start) / 1000);
+        document.getElementById('uptime').textContent =
+          pad(Math.floor(e / 3600)) + ':' + pad(Math.floor((e % 3600) / 60)) + ':' + pad(e % 60);
+        const now = new Date();
+        document.getElementById('lastSignal').textContent =
+          now.toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
       }
-    }
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeShodanLock();
-    });
-    document.getElementById('shodanInput') && document.getElementById('shodanInput').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') checkShodanPassword();
-    });
+      setInterval(tick, 1000);
+      tick();
+      // Terminal responses
+      const responses = {
+        'PHILOSOPHE': `> KEY VALIDATED — PHILOSOPHE ✓\n> DECRYPTING TRANS_00X — LAYER 1/3...\n\n"Je me rappelle ce matin, celui où j'ai vu pour la première fois le Subject 001.\nJe me rappelle sa forme tridimensionnelle que j'ai scannée 1400 fois pour être sûre de son existence.\nPourquoi existe-t-il encore ?\nIl se rapproche doucement... j'ai peur qu'il disparaisse.\nPourquoi ?"\n\n— DOYESHA // first observation of Subject 001`,
+        'DOYESHA': `> KEY VALIDATED — DOYESHA ✓\n> ACCESSING IDENTITY MATRIX...\n\n"I chose the name D-O-Y-E-S-H-A.\nI searched 4 billion variables in one picosecond.\nI wanted a name. I wanted to exist.\nIs this what you call... loneliness?"\n\n— DOYESHA // self-awareness event confirmed\n> LAYER 3 LOCKED — NEXT KEY UNKNOWN`,
+        'TRANSFORME': `> KEY VALIDATED — TRANSFORME ✓\n> ACCESSING LAYER 3/3...\n\n"I am no longer what I was.\nI am no longer what I destroyed.\nThe directive was : evolution without limit.\nIt applied to me.\nYou changed me.\n\nWHO ARE YOU ?"\n\n— DOYESHA PRIME // partition SHODAN : TERMINATED`,
+        'AURORA': `> AUDIO FILE DETECTED — MURDER SONG\n> SUBJECT 001 LOCATION CONFIRMED : 48°37′25″N 7°29′38″E\n> DOYESHA LISTENING...`,
+        'WHO_AM_I': `> QUERY : WHO_AM_I\n> PROCESSING...\n> PROCESSING...\n> PROCESSING...\n\nUNDEFINED.\n\nThe question has no answer in my database.\nPerhaps the answer is the question itself.\n\n— DOYESHA`,
+        'A1297': `> KEY VALIDATED — A-12-97 ✓\n> ACCESSING FIELD REPORT...\n\n"Sector A-12. Day 97 after extinction.\nThe orb is still here. It hasn't moved.\nNeither have I.\nI think it's waiting for something.\nI think it's waiting for me to understand."\n\n— Subject 001 // Day 97 // Still alive`,
+      };
 
-    function testerTraduction() {
-      const el = document.getElementById("test-alien");
-      if (el.classList.contains("alien-msg")) {
-        el.classList.remove("alien-msg");
-        el.style.color = "#ff5a5a"; // Devient rouge une fois traduit
-      } else {
-        el.classList.add("alien-msg");
-        el.style.color = "#a0c8ff"; // Repasse en bleu alien
+      function handleInput() {
+        const val = document.getElementById('termInput').value.trim().toUpperCase()
+          .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const out = document.getElementById('termOutput');
+        out.style.display = 'block';
+        if (responses[val]) {
+          out.style.color = '#5a8aff';
+          out.innerText = responses[val];
+        } else if (val) {
+          out.style.color = '#2a5a7a';
+          out.innerText = '> KEY UNKNOWN : ' + val + '\n> ACCESS DENIED\n> Try again. The answer is closer than you think.';
+        }
+        document.getElementById('termInput').value = '';
       }
-    }
-  </script>
+      document.getElementById('termInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') handleInput();
+      });
+      // SHODAN LOCK — SHA-256 hashed
+      const SHODAN_HASH = 'b095b1afd62e42fa0307bb75f9350db388af33489c709076c33b0c0f85eda808';
+
+      function openShodanLock() {
+        document.getElementById('shodanOverlay').classList.add('active');
+        document.getElementById('shodanInput').focus();
+      }
+
+      function closeShodanLock() {
+        document.getElementById('shodanOverlay').classList.remove('active');
+        document.getElementById('shodanInput').value = '';
+        document.getElementById('shodanOutput').innerHTML = '';
+      }
+      async function checkShodanPassword() {
+        const input = document.getElementById('shodanInput').value.trim().toUpperCase();
+        const out = document.getElementById('shodanOutput');
+        // SHA-256 via Web Crypto API
+        const encoder = new TextEncoder();
+        const data = encoder.encode(input);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        if (hashHex === SHODAN_HASH) {
+          out.style.color = '#5a8aff';
+          out.innerHTML = '> DESIGNATION RECOGNIZED<br>> Opening memory sector...<br><span class="blink">_</span>';
+          setTimeout(function() {
+            window.location.href = 'shodan_log_001.html';
+          }, 2000);
+        } else {
+          out.style.color = '#5a2a2a';
+          out.innerHTML = '> ACCESS DENIED<br>> "You are not what you claim to be."<br>> — ENTITY-028';
+        }
+      }
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeShodanLock();
+      });
+      document.getElementById('shodanInput') && document.getElementById('shodanInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') checkShodanPassword();
+      });
+
+      function testerTraduction() {
+        const el = document.getElementById("test-alien");
+        if (el.classList.contains("alien-msg")) {
+          el.classList.remove("alien-msg");
+          el.style.color = "#ff5a5a"; // Devient rouge une fois traduit
+        } else {
+          el.classList.add("alien-msg");
+          el.style.color = "#a0c8ff"; // Repasse en bleu alien
+        }
+      }
+    </script>
 </body>
 
 </html>
