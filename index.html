@@ -6,6 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Silent Star Service // ENTITY-028</title>
   <style>
+     @font-face {
+            font-family: 'AncienStars';
+            /* On utilise l'adresse directe que tu as testée et qui fonctionne */
+            src: url('https://shodan2020.github.io/Silent-Star-Service/AncienStarsGlyphes-Regular.otf') format('opentype');
+        }
+
+        .alien {
+            font-family: 'AncienStars' !important;
+            font-size: 50px;
+            color: blue;
+        }
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
     * {
@@ -17,22 +28,6 @@
     
     }
 
-  @font-face {
-    font-family: 'AncienStars';
-    /* On pointe l'URL complète pour être sûr à 100% */
-    src: url('https://shodan2020.github.io/Silent-Star-Service/AncienStarsGlyphes-Regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-.alien-msg {
-    /* Le !important ici est crucial */
-    font-family: 'AncienStars' !important;
-    color: #a0c8ff;
-    font-size: 24px; /* On le met gros pour bien voir le changement */
-    display: inline-block;
-    visibility: visible !important;
-}
 
     body {
       background: #000;
