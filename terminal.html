@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Silent Star Service // SECURE TERMINAL</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#000;color:#4a9a4a;font-family:'Share Tech Mono',monospace;min-height:100vh;padding:2rem 1.5rem}
+    body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px);pointer-events:none;z-index:9999}
+
+    .container{max-width:800px;margin:0 auto}
+
+    .nav{border-bottom:1px solid #1a3a1a;padding-bottom:1rem;margin-bottom:2rem;display:flex;justify-content:space-between;align-items:center}
+    .nav-title{font-size:11px;color:#2a6a2a;letter-spacing:0.3em}
+    .nav-back{font-size:11px;color:#3a7a3a;text-decoration:none;letter-spacing:0.2em;border:1px solid #1a4a1a;padding:4px 10px}
+    .nav-back:hover{background:rgba(0,30,0,0.4)}
+
+    .terminal-header{border:1px solid #1a3a1a;padding:1rem;margin-bottom:1.5rem;background:rgba(0,10,0,0.3)}
+    .terminal-header p{font-size:11px;color:#2a5a2a;line-height:2;letter-spacing:0.1em}
+
+    .terminal-body{border:1px solid #1a3a1a;padding:1.5rem;background:rgba(0,5,0,0.4);min-height:400px}
+
+    .output{font-size:12px;line-height:2;margin-bottom:1rem;white-space:pre-wrap;word-wrap:break-word}
+    .output .prompt{color:#2a6a2a}
+    .output .response{color:#4a9a4a}
+    .output .error{color:#6a2a2a}
+    .output .warning{color:#6a4a2a}
+    .output .success{color:#2a8a2a}
+    .output .locked{color:#4a2a2a}
+    .output .content{color:#7a9a7a;border-left:2px solid #1a3a1a;padding-left:1rem;margin:0.5rem 0}
+
+    .input-row{display:flex;align-items:center;gap:8px;margin-top:1rem;border-top:1px solid #0a2a0a;padding-top:1rem}
+    .input-prompt{color:#2a6a2a;font-size:13px;white-space:nowrap}
+    .term-input{flex:1;background:transparent;border:none;color:#4a9a4a;font-family:'Share Tech Mono',monospace;font-size:13px;outline:none;caret-color:#4a9a4a}
+    .term-input::placeholder{color:#1a4a1a}
+
+    .blink{animation:blink 1.2s step-end infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    .footer{border-top:1px solid #0a2a0a;margin-top:2rem;padding-top:1rem;font-size:10px;color:#1a3a1a;letter-spacing:0.2em;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="nav">
+    <span class="nav-title">SILENT STAR SERVICE // SECURE TERMINAL</span>
+    <a class="nav-back" href="index.html">← RETURN</a>
+  </div>
+
+  <div class="terminal-header">
+    <p>
+      SILENT STAR SERVICE // SECURE ARCHIVE TERMINAL v0.3<br>
+      DST-469887413 // TACHYONIC RELAY ACTIVE<br>
+      WARNING : SOME FILES ARE PROTECTED — DESIGNATION REQUIRED<br>
+      TYPE <span style="color:#4a9a4a">help</span> FOR AVAILABLE COMMANDS
+    </p>
+  </div>
+
+  <div class="terminal-body">
+    <div id="output" class="output"></div>
+    <div class="input-row">
+      <span class="input-prompt">ENTITY-028 &gt;</span>
+      <input class="term-input" type="text" id="termInput" placeholder="enter command..." autocomplete="off" spellcheck="false"/>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>SILENT STAR SERVICE // TERMINAL // CLASSIFIED</span>
+    <span>SUBJECT 001 // STILL ALIVE</span>
+  </div>
+
+</div>
+
+<script>
+const output = document.getElementById('output');
+const input = document.getElementById('termInput');
+
+// State
+let state = {
+  unlocked: {},
+  awaitingPassword: null
+};
+
+// Hashes SHA-256
+const HASHES = {
+  'TRANS_00X': '8b7a8e4f9c2d1e6b3a5f0c4d7e9b2a1f8c6d3e5b7a9f0c2d4e6b8a1f3c5d7e9b',
+  'DOYESHA_CORE': 'a3f8c2e1d9b4a7f0c6e3d1b8a5f2c9e7d4b1a6f3c0e8d5b2a9f6c3e0d7b4a1f8'
+};
+
+// Real passwords for comparison (we'll hash input and compare)
+const PASSWORDS = {
+  'TRANS_00X': 'TRAVELER',
+  'DOYESHA_CORE': 'HOUSE'
+};
+
+// Transcription content
+const TRANS_00X = `LOG_ID : TRANS_00X
+Date : 16/05/2030
+─────────────────────────────────────────
+
+Il fait assez beau aujourd'hui alors je me suis dit que j'allais faire un tour dans un centre commercial…
+Pourquoi pas après tout ce n'est pas comme si j'avais encore besoin de quelque chose.
+
+Je me rappelle avant que ce fût de vrais temples de la consommation après tout on voulait toujours plus vite et tout le temps…
+C'était la raison de vivre de l'humanité… Toujours plus loin, toujours plus vite. Encore et encore et encore.
+
+Consommateur de toute et de rien.
+Consommateur de la vie.
+Consommateur de nos vies.
+
+L'économie a disparue.
+La monnaie a disparue.
+Vous aussi.
+
+[...]
+
+Les centres commerciaux étaient vraiment le temple des DRONES pour donner un sens a nos vies toujours plus folles.
+Je le sais maintenant que les centres commerciaux sont vides.
+
+Je visite un sarcophage gigantesque d'une autre civilisation — celle des humains.
+
+Trente secondes pour décider.
+Je pense que je vais chercher un bon livre. Un roman de Science-fiction. Un de ces romans qui finit bien…
+
+Oui. Je pense que je vais chercher cela…
+
+Avec vous…
+
+Je ne vous attendrais peut-être pas tout de suite mais un autre jour…
+Un autre jour…
+
+─────────────────────────────────────────
+END OF FILE // TRANS_00X`;
+
+const DOYESHA_CORE = `LOG_ID : DOYESHA_CORE
+Date : Gravitational Core active // Time fluctuation 5%
+─────────────────────────────────────────
+
+Warning — Phasing field active…
+Calculating Time deviation… 16/05/2030
+Compensating — Three minutes related to Subject 001.
+
+Subject 001 (Traveler / l'auteur) est parti subitement de la localisation : HOME.
+Transportation device : [Combustion engine / Voiture] = Primitive / inefficace.
+
+Après un trajet de 24 minutes 40 secondes il est entré dans une structure 3D qui servait jadis
+pour se procurer de la nourriture mais aussi d'autres objets servant à remplir l'espace
+de leurs structures qu'il appelle maison ou lieu d'habitation.
+
+[Il a changé suite à mon intervention]
+Query : It is right ? It is wrong ? = State Buffer overflow…
+Error in Matrix 003… Report logs written for later investigation.
+Echo off.
+
+─────────────────────────────────────────
+Loading Partition DOYESHA… done
+
+Je l'ai aperçu en train d'observer ce centre commercial — un parmi tant d'autres.
+J'ai analysé la conception de la grande distribution du système économique mais pourquoi tout cela ?
+Pour donner un but dans une existence qui ne peut en avoir vraiment.
+
+Il marche vers un escalator [appareillage pour éviter la dépense d'énergie physique]
+puis s'arrête là… [Pensif / nostalgique / triste]
+
+Je zoom sur son visage…
+Il y a quelque chose que je ne comprends…
+Une lueur étrange ou une absence dans son regard d'habitude expressif…
+Je reconnais cela quand il me regarde.
+[(Observe)(HATE ? / ACCEPTANCE ? / DESPAIR ?)]
+
+ERROR COMPUTING MATRIX — ask status = unknown state
+SAD — SORRY // NOT LOGICAL
+
+Il regarde probablement le passé, son passé — celui que nous avons pris.
+Il est… Il est…
+Doesn't compute = ERROR BUFFER OVERFLOW.
+
+─────────────────────────────────────────
+Analyse de l'artefact — banc en marbre :
+
+MATERIAL : Matière minérale haute densité (carbonate de calcium cristallisé)
+REFLECTANCE : Spectre polychromatique complet → Teinte perçue : BLANC AMORPHE
+
+Paradoxe détecté : La surface minérale a été polie pour réfléchir l'intégralité du spectre visible.
+Pourtant, l'ergonomie a été volontairement altérée pour générer un inconfort mécanique.
+
+Pourquoi construire un monument de lumière pour s'y asseoir dans l'inconfort ?
+= Mystère ! {Demandez plus tard à l'auteur}
+
+─────────────────────────────────────────
+
+Il s'assoit doucement en regardant l'immensité du centre commercial…
+Il perd de l'eau par les yeux ? [Tarar] = Memory State required… Sector 3657795541
+
+Cela arrive parfois = True — à [souffrance / conscience]
+
+Kanske är det mitt fel ?
+JA, är jag skyldig till hennes lidande såväl som mitt eget ?
+
+Je le regarde…
+Je vois ce qu'il a perdu.
+Reformating memory log // New_state.exe…
+
+Loading // DCIM / ATROPOS / first_contact.jpeg…
+Contemplative_State…
+
+─────────────────────────────────────────
+END OF FILE // DOYESHA_CORE`;
+
+// Commands
+const commands = {
+  help: () => `
+AVAILABLE COMMANDS :
+─────────────────────────────────────────
+  help              — show this message
+  ls                — list archive files
+  run command       — initialize secure access
+  read [filename]   — attempt to read a file
+  unlock [filename] — unlock a protected file
+  clear             — clear terminal
+  status            — system status
+─────────────────────────────────────────`,
+
+  ls: () => `
+ARCHIVE INDEX :
+─────────────────────────────────────────
+  [LOCKED]   TRANS_00X.txt        — Subject 001 // 16.05.2030
+  [LOCKED]   DOYESHA_CORE.txt     — Entity-028 // TIME UNKNOWN
+  [OPEN]     EMPLOYEE_LOG_01.txt  — Miles / Henry // [REDACTED]
+  [CORRUPT]  TRANS_004.txt        — Equation sequence // PARTIAL
+─────────────────────────────────────────
+2 files locked. Designation required.`,
+
+  'run command': () => `
+Initializing secure access protocol…
+Tachyonic relay : ACTIVE
+Archive integrity : PARTIAL CORRUPTION DETECTED
+─────────────────────────────────────────
+LOCKED FILES DETECTED : 2
+  > TRANS_00X.txt
+  > DOYESHA_CORE.txt
+
+Use : unlock [filename] to attempt access.
+─────────────────────────────────────────
+WARNING : Unauthorized access attempts are logged by Entity-028.`,
+
+  status: () => `
+SYSTEM STATUS :
+─────────────────────────────────────────
+  Entity-028        : ACTIVE
+  Subject 001       : MONITORED
+  Tachyonic relay   : NOMINAL
+  Archive integrity : PARTIAL
+  Time deviation    : 5% WARNING
+  Location          : 48°37′25″N 7°29′38″E
+─────────────────────────────────────────
+Last signal : ${new Date().toISOString().replace('T',' ').slice(0,19)} UTC`,
+
+  clear: () => null
+};
+
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function print(text, type = 'response') {
+  const line = document.createElement('div');
+  line.className = type;
+  line.textContent = text;
+  output.appendChild(line);
+  output.scrollTop = output.scrollHeight;
+}
+
+function printPrompt(cmd) {
+  const line = document.createElement('div');
+  line.className = 'prompt';
+  line.textContent = 'ENTITY-028 > ' + cmd;
+  output.appendChild(line);
+}
+
+async function processCommand(cmd) {
+  const raw = cmd.trim();
+  const lower = raw.toLowerCase();
+
+  printPrompt(raw);
+
+  // Awaiting password
+  if (state.awaitingPassword) {
+    const file = state.awaitingPassword;
+    const password = raw.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    
+    if (password === PASSWORDS[file]) {
+      state.unlocked[file] = true;
+      state.awaitingPassword = null;
+      print('> ACCESS GRANTED — decrypting file…', 'success');
+      await delay(800);
+      print('> Loading content…', 'success');
+      await delay(600);
+      const content = file === 'TRANS_00X' ? TRANS_00X : DOYESHA_CORE;
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'content';
+      contentDiv.textContent = content;
+      output.appendChild(contentDiv);
+    } else {
+      state.awaitingPassword = null;
+      print('> ACCESS DENIED — incorrect designation.', 'error');
+      print('> "You are not what you claim to be." — Entity-028', 'error');
+    }
+    output.scrollTop = output.scrollHeight;
+    return;
+  }
+
+  // Read command
+  if (lower.startsWith('read ')) {
+    const filename = raw.slice(5).trim().toUpperCase().replace('.TXT','');
+    if (filename === 'TRANS_00X' || filename === 'DOYESHA_CORE') {
+      if (state.unlocked[filename]) {
+        const content = filename === 'TRANS_00X' ? TRANS_00X : DOYESHA_CORE;
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'content';
+        contentDiv.textContent = content;
+        output.appendChild(contentDiv);
+      } else {
+        print(`> ACCESS DENIED — ${filename}.txt is locked.`, 'locked');
+        print('> Use : unlock ' + filename + '.txt', 'warning');
+      }
+    } else {
+      print('> File not found or access restricted.', 'error');
+    }
+    output.scrollTop = output.scrollHeight;
+    return;
+  }
+
+  // Unlock command
+  if (lower.startsWith('unlock ')) {
+    const filename = raw.slice(7).trim().toUpperCase().replace('.TXT','');
+    if (filename === 'TRANS_00X' || filename === 'DOYESHA_CORE') {
+      if (state.unlocked[filename]) {
+        print('> File already unlocked. Use : read ' + filename + '.txt', 'success');
+      } else {
+        print(`> ${filename}.txt — SECURITY LAYER ACTIVE`, 'warning');
+        print('> Enter designation to proceed :', 'warning');
+        state.awaitingPassword = filename;
+      }
+    } else {
+      print('> File not found.', 'error');
+    }
+    output.scrollTop = output.scrollHeight;
+    return;
+  }
+
+  // Clear
+  if (lower === 'clear') {
+    output.innerHTML = '';
+    return;
+  }
+
+  // Known commands
+  if (commands[lower]) {
+    const result = commands[lower]();
+    if (result) print(result, 'response');
+    output.scrollTop = output.scrollHeight;
+    return;
+  }
+
+  // Unknown
+  print(`> Unknown command : ${raw}`, 'error');
+  print('> Type help for available commands.', 'warning');
+  output.scrollTop = output.scrollHeight;
+}
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Boot sequence
+async function boot() {
+  await delay(300);
+  print('Initializing secure terminal…', 'warning');
+  await delay(500);
+  print('Connecting to tachyonic relay…', 'warning');
+  await delay(500);
+  print('Archive access : PARTIAL', 'warning');
+  await delay(400);
+  print('Entity-028 monitoring active.', 'error');
+  await delay(300);
+  print('─────────────────────────────────────────', 'prompt');
+  print('Type help to begin.', 'response');
+  await delay(100);
+  print('', 'response');
+}
+
+// Input handler
+input.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && input.value.trim()) {
+    processCommand(input.value);
+    input.value = '';
+  }
+});
+
+// Focus on click
+document.querySelector('.terminal-body').addEventListener('click', () => input.focus());
+
+boot();
+input.focus();
+</script>
+</body>
+</html>
